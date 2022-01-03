@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SharpFileSystem.FileSystems
 {
-    public class SealedFileSystem : IFileSystem
+    public sealed class SealedFileSystem : IFileSystem
     {
         private IFileSystem Parent { get; set; }
 

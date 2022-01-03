@@ -5,7 +5,7 @@ using SharpFileSystem.Collections;
 
 namespace SharpFileSystem.FileSystems
 {
-    public class FileSystemMounter : IFileSystem
+    public sealed class FileSystemMounter : IFileSystem
     {
         public ICollection<KeyValuePair<FileSystemPath, IFileSystem>> Mounts { get; private set; }
 

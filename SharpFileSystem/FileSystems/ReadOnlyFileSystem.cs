@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SharpFileSystem.FileSystems
 {
-    public class ReadOnlyFileSystem: IFileSystem
+    public sealed class ReadOnlyFileSystem: IFileSystem
     {
         public IFileSystem FileSystem { get; private set; }
 

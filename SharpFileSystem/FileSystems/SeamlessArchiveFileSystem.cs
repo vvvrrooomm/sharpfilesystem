@@ -198,21 +198,29 @@ namespace SharpFileSystem.FileSystems
         }
         #endregion
 
-        public void Dispose()
-        {
-            foreach (var reference in _usedArchives.Values.SelectMany(usage => usage.References).ToArray())
-                UnuseFileSystem(reference);
-            FileSystem.Dispose();
+        protected virtual void Dispose(bool cleanManagedAsWell){
+            if (cleanManagedAsWell)
+            {
+                foreach (var reference in _usedArchives.Values.SelectMany(usage => usage.References).ToArray())
+                    UnuseFileSystem(reference);
+                FileSystem.Dispose();
+            }
         }
 
-        public class DummyDisposable : IDisposable
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public sealed class DummyDisposable : IDisposable
         {
             public void Dispose()
             {
             }
         }
 
-        public class FileSystemReference : IDisposable
+        public sealed class FileSystemReference : IDisposable
         {
             public FileSystemUsage Usage { get; set; }
             public IFileSystem FileSystem

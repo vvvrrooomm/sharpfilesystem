@@ -6,7 +6,7 @@ using SharpFileSystem.Collections;
 
 namespace SharpFileSystem.FileSystems
 {
-    public class PhysicalFileSystem : IFileSystem
+    public  sealed class PhysicalFileSystem : IFileSystem
     {
         #region Internals
         public string PhysicalRoot { get; private set; }

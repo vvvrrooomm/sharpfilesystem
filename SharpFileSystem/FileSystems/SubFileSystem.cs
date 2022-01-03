@@ -5,7 +5,7 @@ using SharpFileSystem.Collections;
 
 namespace SharpFileSystem.FileSystems
 {
-    public class SubFileSystem: IFileSystem
+    public sealed class SubFileSystem: IFileSystem
     {
         public IFileSystem FileSystem { get; private set; }
         public FileSystemPath Root { get; private set; }

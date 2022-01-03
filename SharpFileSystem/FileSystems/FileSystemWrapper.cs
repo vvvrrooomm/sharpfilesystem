@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SharpFileSystem.FileSystems
 {
-    public class FileSystemWrapper : IFileSystem
+    public sealed class FileSystemWrapper : IFileSystem
     {
         public IFileSystem Parent { get; private set; }
 

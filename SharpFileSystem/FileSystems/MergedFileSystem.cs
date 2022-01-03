@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SharpFileSystem.FileSystems
 {
-    public class MergedFileSystem: IFileSystem
+    public sealed class MergedFileSystem: IFileSystem
     {
         public IEnumerable<IFileSystem> FileSystems { get; private set; }
         public MergedFileSystem(IEnumerable<IFileSystem> fileSystems)

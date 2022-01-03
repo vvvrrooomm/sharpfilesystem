@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SharpFileSystem.FileSystems
 {
-    public class MemoryFileSystem : IFileSystem
+    public sealed class MemoryFileSystem : IFileSystem
     {
         private IDictionary<FileSystemPath, ISet<FileSystemPath>> _directories =
     new Dictionary<FileSystemPath, ISet<FileSystemPath>>();

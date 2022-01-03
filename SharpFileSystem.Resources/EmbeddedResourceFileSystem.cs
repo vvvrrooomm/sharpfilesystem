@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace SharpFileSystem.Resources
 {
-    public class EmbeddedResourceFileSystem : IFileSystem
+    public sealed class EmbeddedResourceFileSystem : IFileSystem
     {
         public Assembly Assembly { get; private set; }
         public EmbeddedResourceFileSystem(Assembly assembly)

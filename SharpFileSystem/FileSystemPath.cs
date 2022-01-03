@@ -88,7 +88,7 @@ namespace SharpFileSystem
                 throw new ArgumentNullException("s");
             if (!IsRooted(s))
                 throw new ParseException(s, "Path is not rooted");
-            if (s.Contains(string.Concat(DirectorySeparator, DirectorySeparator)))
+            if (s.Contains(string.Concat(DirectorySeparator, DirectorySeparator), StringComparison.Ordinal))
                 throw new ParseException(s, "Path contains double directory-separators.");
             return new FileSystemPath(s);
         }
@@ -107,13 +107,13 @@ namespace SharpFileSystem
         {
             if (!IsDirectory)
                 throw new InvalidOperationException("This FileSystemPath is not a directory.");
-            return new FileSystemPath(Path + path.Path.Substring(1));
+            return new FileSystemPath(string.Concat(Path , path.Path.AsSpan(1)));
         }
 
         [Pure]
         public FileSystemPath AppendDirectory(string directoryName)
         {
-            if (directoryName.Contains(DirectorySeparator.ToString()))
+            if (directoryName.Contains(DirectorySeparator.ToString(), StringComparison.Ordinal))
                 throw new ArgumentException("The specified name includes directory-separator(s).", "directoryName");
             if (!IsDirectory)
                 throw new InvalidOperationException("The specified FileSystemPath is not a directory.");
@@ -123,7 +123,7 @@ namespace SharpFileSystem
         [Pure]
         public FileSystemPath AppendFile(string fileName)
         {
-            if (fileName.Contains(DirectorySeparator.ToString()))
+            if (fileName.Contains(DirectorySeparator.ToString(), StringComparison.Ordinal))
                 throw new ArgumentException("The specified name includes directory-separator(s).", "fileName");
             if (!IsDirectory)
                 throw new InvalidOperationException("The specified FileSystemPath is not a directory.");
@@ -180,7 +180,7 @@ namespace SharpFileSystem
             string name = EntityName;
             int extensionIndex = name.LastIndexOf('.');
             if (extensionIndex >= 0)
-                return ParentPath.AppendFile(name.Substring(0, extensionIndex) + extension);
+                return ParentPath.AppendFile(string.Concat(name.AsSpan(0, extensionIndex),  extension));
             return FileSystemPath.Parse(Path + extension);
         }
 
@@ -222,13 +222,13 @@ namespace SharpFileSystem
         [Pure]
         public bool Equals(FileSystemPath other)
         {
-            return other.Path.Equals(Path);
+            return other.Path.Equals(Path, StringComparison.Ordinal);
         }
 
         [Pure]
         public override int GetHashCode()
         {
-            return Path.GetHashCode();
+            return Path.GetHashCode(StringComparison.Ordinal);
         }
 
         public static bool operator ==(FileSystemPath pathA, FileSystemPath pathB)
